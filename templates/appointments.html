@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Consultas{% endblock %}
+
+{% block content %}
+
+<h2>Consultas</h2>
+
+{% for appointment in appointments %}
+
+    <div>
+        <p>Paciente: {{ appointment.patient_id }}</p>
+        <p>Profissional: {{ appointment.professional_id }}</p>
+        <p>Data: {{ appointment.date_time }}</p>
+        <p>Status: {{ appointment.status }}</p>
+        <p>Observações: {{ appointment.notes }}</p>
+    </div>
+
+{% endfor %}
+
+{% endblock %}

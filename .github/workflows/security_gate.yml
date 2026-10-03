@@ -1,0 +1,19 @@
+name: Security Gate Aula SCA
+
+on: push
+
+jobs:
+  scan-de-seguranca:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar o codigo do repositorio
+        uses: actions/checkout@v4
+
+      - name: Scanner de Vulnerabilidades (Bloqueia HIGH/CRITICAS)
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          format: 'table'
+          severity: 'HIGH,CRITICAL'
+          exit-code: '1'
