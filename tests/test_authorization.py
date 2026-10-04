@@ -11,6 +11,10 @@ from models.users import User
 from models.appointments import Appointment
 
 from security.password import hash_password
+from unittest.mock import Mock
+
+from main import app
+from security.auth import validar_token_jwt
 
 
 @pytest.mark.asyncio
@@ -186,3 +190,38 @@ async def test_html_escapes_malicious_content(
     assert response.status_code == 200
     assert "<script>" not in response.text
     assert "&lt;script&gt;" in response.text
+
+
+
+@pytest.mark.asyncio
+async def test_laboratory_authorization_with_mocked_jwt(
+    default_client: httpx.AsyncClient
+):
+    mock_jwt = Mock(
+        return_value={
+            "role": "laboratorio",
+            "scope": "laboratory:availability",
+            "client_id": "lab-test"
+        }
+    )
+
+    def mocked_validar_token_jwt():
+        return mock_jwt()
+
+    app.dependency_overrides[validar_token_jwt] = mocked_validar_token_jwt
+
+    try:
+        response = await default_client.get(
+            "/laboratory/availability"
+        )
+
+        assert response.status_code == 200
+        assert response.json()["client_id"] == "lab-test"
+
+        mock_jwt.assert_called_once_with()
+
+    finally:
+        app.dependency_overrides.pop(
+            validar_token_jwt,
+            None
+        )

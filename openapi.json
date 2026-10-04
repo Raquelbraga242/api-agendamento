@@ -1,0 +1,654 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "API de Agendamento Clínico",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/appointment/new": {
+      "post": {
+        "tags": [
+          "Appointments"
+        ],
+        "summary": "Create Appointment",
+        "operationId": "create_appointment_appointment_new_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppointmentCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppointmentResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/appointment/": {
+      "get": {
+        "tags": [
+          "Appointments"
+        ],
+        "summary": "List Appointments",
+        "operationId": "list_appointments_appointment__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/AppointmentResponse"
+                  },
+                  "type": "array",
+                  "title": "Response List Appointments Appointment  Get"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/appointment/html": {
+      "get": {
+        "tags": [
+          "Appointments"
+        ],
+        "summary": "Appointments Html",
+        "operationId": "appointments_html_appointment_html_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/appointment/{appointment_id}": {
+      "get": {
+        "tags": [
+          "Appointments"
+        ],
+        "summary": "Get Appointment",
+        "operationId": "get_appointment_appointment__appointment_id__get",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "appointment_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Appointment Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppointmentResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/token": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Login",
+        "operationId": "login_token_post",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_login_token_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/token-m2m": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Token M2M",
+        "operationId": "token_m2m_token_m2m_post",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_token_m2m_token_m2m_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/signup": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Signup",
+        "operationId": "signup_signup_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mfa/verify": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Verify Mfa",
+        "operationId": "verify_mfa_mfa_verify_post",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "mfa_code",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Mfa Code"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Admin Area",
+        "operationId": "admin_area_admin_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/laboratory/availability": {
+      "get": {
+        "tags": [
+          "Laboratory"
+        ],
+        "summary": "Laboratory Availability",
+        "operationId": "laboratory_availability_laboratory_availability_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/": {
+      "get": {
+        "summary": "Home",
+        "operationId": "home__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AppointmentCreate": {
+        "properties": {
+          "patient_id": {
+            "type": "integer",
+            "title": "Patient Id"
+          },
+          "professional_id": {
+            "type": "integer",
+            "title": "Professional Id"
+          },
+          "date_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date Time"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "patient_id",
+          "professional_id",
+          "date_time"
+        ],
+        "title": "AppointmentCreate"
+      },
+      "AppointmentResponse": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "patient_id": {
+            "type": "integer",
+            "title": "Patient Id"
+          },
+          "professional_id": {
+            "type": "integer",
+            "title": "Professional Id"
+          },
+          "date_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date Time"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "patient_id",
+          "professional_id",
+          "date_time",
+          "status"
+        ],
+        "title": "AppointmentResponse"
+      },
+      "Body_login_token_post": {
+        "properties": {
+          "grant_type": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^password$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Grant Type"
+          },
+          "username": {
+            "type": "string",
+            "title": "Username"
+          },
+          "password": {
+            "type": "string",
+            "format": "password",
+            "title": "Password"
+          },
+          "scope": {
+            "type": "string",
+            "title": "Scope",
+            "default": ""
+          },
+          "client_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Client Id"
+          },
+          "client_secret": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "format": "password",
+            "title": "Client Secret"
+          }
+        },
+        "type": "object",
+        "required": [
+          "username",
+          "password"
+        ],
+        "title": "Body_login_token_post"
+      },
+      "Body_token_m2m_token_m2m_post": {
+        "properties": {
+          "grant_type": {
+            "type": "string",
+            "title": "Grant Type"
+          },
+          "client_id": {
+            "type": "string",
+            "title": "Client Id"
+          },
+          "client_secret": {
+            "type": "string",
+            "title": "Client Secret"
+          },
+          "scope": {
+            "type": "string",
+            "title": "Scope"
+          }
+        },
+        "type": "object",
+        "required": [
+          "grant_type",
+          "client_id",
+          "client_secret",
+          "scope"
+        ],
+        "title": "Body_token_m2m_token_m2m_post"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "UserCreate": {
+        "properties": {
+          "username": {
+            "type": "string",
+            "maxLength": 30,
+            "minLength": 3,
+            "title": "Username"
+          },
+          "password": {
+            "type": "string",
+            "title": "Password"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "profissional",
+              "recepcionista"
+            ],
+            "title": "Role"
+          },
+          "mfa_enabled": {
+            "type": "boolean",
+            "title": "Mfa Enabled",
+            "default": false
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "username",
+          "password",
+          "role"
+        ],
+        "title": "UserCreate"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    },
+    "securitySchemes": {
+      "OAuth2PasswordBearer": {
+        "type": "oauth2",
+        "flows": {
+          "password": {
+            "scopes": {},
+            "tokenUrl": "/token"
+          }
+        }
+      }
+    }
+  }
+}
